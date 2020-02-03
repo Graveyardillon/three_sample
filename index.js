@@ -22,19 +22,19 @@ function init() {
   );
   camera.position.set(0, 0, +1000)
   
-  // Create a cube
-  const geometry = new THREE.BoxGeometry(500, 500, 500);
-  const material = new THREE.MeshStandardMaterial({
-    color: 0x0000ff
-  });
+  // Create a ellipsoid
+  var geometry = new THREE.SphereGeometry( 150, 150, 150, 10 );
+  geometry.applyMatrix4( new THREE.Matrix4().makeScale( 1.0, 1.0, 1.5 ) );
+  const material = new THREE.MeshNormalMaterial();
   
   // Create a mesh
   const box = new THREE.Mesh(geometry, material);
   scene.add(box);
   
   // Create a direction light
-  const light = new THREE.DirectionalLight(0xffffff);
+  const light = new THREE.DirectionalLight(0xfafafa);
   light.position.set(1, 1, 1);
+  light.intensity = 2.5
   scene.add(light);
   
   renderer.render(scene, camera);
@@ -44,11 +44,9 @@ function init() {
   function tick() {
     requestAnimationFrame(tick);
 
-    // 箱を回転させる
-    box.rotation.x += 0.01;
-    box.rotation.y += 0.01;
+    //box.rotation.x += 0.01;
+    box.rotation.y += 0.05;
 
-    // レンダリング
     renderer.render(scene, camera);
   }
 }
